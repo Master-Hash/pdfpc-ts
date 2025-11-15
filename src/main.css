@@ -1,0 +1,22 @@
+@import "tailwindcss";
+@import "./catppuccin.css";
+@plugin "./iconify-compat.mjs";
+
+:root {
+  /* @apply scroll-smooth; */
+  color-scheme: light dark;
+  text-autospace: normal;
+}
+
+@theme {
+  --font-zh: "Noto Sans SC", "SEC CJK SC", "PingFang SC", ui-sans-serif,
+    system-ui, sans-serif, emoji;
+}
+
+#root {
+  @apply bg-cat-base text-cat-text;
+  @apply grid min-h-screen grid-rows-[auto_1fr_auto] print:block;
+
+  @apply font-serif;
+}
+

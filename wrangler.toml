@@ -1,0 +1,10 @@
+#:schema node_modules/wrangler/config-schema.json
+
+name = "pdfpc"
+compatibility_date = "2025-11-15"
+assets = { directory = "./dist" }
+workers_dev = false
+routes = [
+  { pattern = "pdfpc.hash.moe", custom_domain = true },
+]
+send_metrics = false

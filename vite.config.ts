@@ -40,4 +40,7 @@ export default defineConfig({
       polyfill: false,
     },
   },
+  worker: {
+    format: "es",
+  },
 });

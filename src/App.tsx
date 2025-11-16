@@ -1,9 +1,34 @@
-import { createEffect, createSignal } from "solid-js";
+import { proxy, transfer, wrap } from "comlink";
+import { createEffect, createSignal, For, Show } from "solid-js";
 import { render } from "solid-js/web";
-import classNames from "classnames";
+import { DropZone } from "./DropZone.tsx";
+import type { obj } from "./pdfium-worker.ts";
+
+const _worker = new Worker(new URL("./pdfium-worker.ts", import.meta.url), {
+  type: "module",
+  name: "pdfium-worker",
+});
+
+const worker = wrap<typeof obj>(_worker);
+
+// import styles from "./side.css" with { type: "css" };
 
 // 乐，React 搞不了多根的状态同步吧
 const [globalCount, setGlobalCount] = createSignal(0);
+
+const [filePageCount, setFilePageCount] = createSignal(-1);
+
+// let doc: PDFiumDocument | undefined = undefined;
+
+const [docImages, setDocImages] = createSignal<Array<string | undefined>>([]);
+
+export function setDocImagesWrapper(index: number, url: string) {
+  setDocImages((prev) => {
+    const newArr = [...prev];
+    newArr[index] = url;
+    return newArr;
+  });
+}
 
 function PopupRoot() {
   return (
@@ -13,98 +38,49 @@ function PopupRoot() {
   );
 }
 
-type DropZoneProps = {
-  type: "no-notes" | "notes-right";
-  onFileSelect: (file: File) => void;
-};
+const handleFileSelect =
+  (type: "no-notes" | "notes-right") => async (selectedFile: File) => {
+    const u = await selectedFile.bytes();
 
-function DropZone(props: DropZoneProps) {
-  const [isDragging, setIsDragging] = createSignal(false);
-
-  const handleDragOver = (e: DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragging(true);
-  };
-
-  const handleDragLeave = (e: DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragging(false);
-  };
-
-  const handleDrop = (e: DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragging(false);
-
-    const files = e.dataTransfer?.files;
-    if (files && files.length > 0) {
-      const file = files[0];
-      if (file.type === "application/pdf") {
-        props.onFileSelect(file);
-      } else {
-        alert("请上传 PDF 文件");
+    try {
+      await worker.loadPDF(transfer(u, [u.buffer]));
+      setFilePageCount(await worker.pageCount());
+      for (let i = 0; i < filePageCount(); i++) {
+        await worker.renderPDF(i, proxy(setDocImagesWrapper));
       }
+      console.log(docImages());
+    } catch (error) {
+      console.error("Failed to process PDF:", error);
+    } finally {
     }
   };
-
-  const handleClick = () => {
-    const input = document.createElement("input");
-    input.type = "file";
-    input.accept = "application/pdf";
-    input.onchange = (e) => {
-      const file = (e.target as HTMLInputElement).files?.[0];
-      if (file) {
-        props.onFileSelect(file);
-      }
-    };
-    input.click();
-  };
-
-  return (
-    <div
-      class={classNames(
-        "outline outline-cat-subtext0 outline-dashed grid place-items-center text-2xl relative cursor-pointer",
-        {
-          "bg-cat-surface0 outline-cat-sapphire outline-2": isDragging(),
-        }
-      )}
-      onDragOver={handleDragOver}
-      onDragLeave={handleDragLeave}
-      onDrop={handleDrop}
-      onClick={handleClick}
-    >
-      <div>
-        {props.type === "no-notes" ? (
-          <>
-            <span class="font-zh">⬚</span> No speaker notes
-          </>
-        ) : (
-          <>
-            <span class="font-zh">⿰</span> Speaker notes on the right
-          </>
-        )}
-      </div>
-      <span class="absolute icon-[fluent--document-add-20-filled] bottom-2 right-2 text-8xl opacity-15" />
-    </div>
-  );
-}
 
 function App() {
   let w: WindowProxy | null = null;
 
-  createEffect(() => { });
-
-  const handleFileSelect =
-    (type: "no-notes" | "notes-right") => (file: File) => {
-      console.log(`Selected file for ${type}:`, file.name);
-      // 在这里处理 PDF 文件
-      // 例如：使用 FileReader 读取文件，或使用 pdfium 加载
-    };
+  createEffect(() => {});
 
   return (
-    <>
+    <Show
+      when={filePageCount() <= 0}
+      fallback={
+        // <img src={imgTest()} />
+        <div class="grid grid-cols-3 gap-4 p-4">
+          <For each={Array(filePageCount()).fill(0)}>
+            {(_, index) => (
+              <div class="aspect-video outline outline-cat-subtext0">
+                <Show when={docImages()[index()]}>
+                  <img
+                    src={docImages()[index()]}
+                    class="w-full h-full object-contain"
+                  />
+                </Show>
+              </div>
+            )}
+          </For>
+        </div>
+      }
+    >
       <header></header>
       <main class="mx-10 my-10">
         <h1 class="text-4xl font-extrabold">PDF Presenter View</h1>
@@ -121,13 +97,15 @@ function App() {
           />
         </div>
       </main>
-      {/* 选择？拖拽？二分拖拽？ */}
       <button
         onclick={(e) => {
           console.log(e);
           if (!w) {
             w = window.open("", "", "left=100,top=100,width=320,height=320");
             console.log(w);
+
+            // todo: when does vite support css import attributes?
+            // w?.document.adoptedStyleSheets?.push(styles);
             render(() => <PopupRoot />, w!.document!.querySelector("body")!);
 
             // const n = w!.document.createElement("a");
@@ -141,9 +119,9 @@ function App() {
         onclick={() => {
           setGlobalCount((v) => v + 1);
         }}
-      ></button>
+      />
       <footer></footer>
-    </>
+    </Show>
   );
 }
 

@@ -34,12 +34,12 @@ export function setDocImagesWrapper(index: number, url: string) {
 function PopupRoot() {
   return (
     <div class="aspect-video">
-      <div class="relative w-full h-full overflow-hidden aspect-video">
+      <div class="w-[min(100vw,calc(100vh*16/9))] h-[min(100vh,calc(100vw*9/16))] overflow-hidden">
         <Show when={docImages()[globalCount()]}>
           <img
             src={docImages()[globalCount()]}
             alt="slide"
-            class="absolute h-full w-auto"
+            class="object-cover object-left h-full w-auto"
           />
         </Show>
       </div>
@@ -95,7 +95,7 @@ function App() {
                 </For>
               </div>
               {/* Control buttons */}
-              <div class="flex justify-between p-4 absolute bottom-4 left-4 gap-6 ">
+              <div class="flex justify-between p-4 fixed bottom-4 left-4 gap-6 ">
                 <div
                   class="h-8 w-8 place-items-center grid outline outline-cat-subtext0 text-cat-subtext0 rounded-full opacity-25 hover:opacity-100 cursor-pointer"
                   onClick={() => {

@@ -8,7 +8,9 @@
   text-autospace: normal;
 
   /* Only affacts the popup window */
-  @apply bg-black;
+  &:not(:has(#root)) {
+    @apply grid place-items-center min-h-screen bg-black;
+  }
 }
 
 @theme {

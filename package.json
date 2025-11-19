@@ -29,7 +29,7 @@
     "prettier-plugin-tailwindcss": "^0.7.1",
     "solid-devtools": "^0.34.4",
     "typescript": "^5.9.3",
-    "vite": "npm:rolldown-vite@7.2.5",
+    "vite": "npm:rolldown-vite@7.2.6",
     "vite-plugin-solid": "^2.11.10",
     "vite-plugin-standard-css-modules": "^0.0.11",
     "wrangler": "^4.49.0"

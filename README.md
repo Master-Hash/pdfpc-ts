@@ -4,8 +4,6 @@ README TRANSLATED BY LLM
 
 Re-implementing a slideshow with presenter view in the browser, similar to Pympress and pdfpc, but with better performance.
 
-(Work in progress)
-
 ## Usage
 
 I assume the PDF used for presentations has a 16:9 aspect ratio. If there are notes, the convention is that the left half of each page is the main content, and the right half is the notes. For example:
@@ -48,7 +46,7 @@ This project is good enough for my own use; I don't want to create a second Powe
 
 ## Demo
 
-TODO
+![](/pdfpc-ts-demo.mp4)
 
 ## Motivation
 

@@ -46,7 +46,7 @@ This project is good enough for my own use; I don't want to create a second Powe
 
 ## Demo
 
-![](/pdfpc-ts-demo.mp4)
+![](https://assets.hash.moe/pdfpc-ts-demo.mp4)
 
 ## Motivation
 

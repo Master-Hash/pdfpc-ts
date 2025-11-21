@@ -386,6 +386,10 @@ function SelectFile() {
             <a
               href="/?file=example.pdf"
               onclick={(e) => {
+                // If holding Ctrl or Cmd, open in new tab
+                if (e.ctrlKey || e.metaKey) {
+                  return;
+                }
                 e.preventDefault();
                 fetchPDF("/?file=example.pdf");
               }}

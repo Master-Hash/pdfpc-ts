@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@hyzyla/pdfium": "^2.1.9",
-    "@iconify-json/fluent": "^1.2.34",
+    "@iconify-json/fluent": "^1.2.35",
     "@iconify-json/mdi": "^1.2.3",
     "@iconify/utils": "^3.0.2",
     "classnames": "^2.5.1",
@@ -32,7 +32,7 @@
     "vite": "npm:rolldown-vite@7.2.7",
     "vite-plugin-solid": "^2.11.10",
     "vite-plugin-standard-css-modules": "^0.0.11",
-    "wrangler": "^4.49.0"
+    "wrangler": "^4.50.0"
   },
   "engines": {
     "node": ">=24.10.0"

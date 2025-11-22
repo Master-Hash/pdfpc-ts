@@ -4,6 +4,7 @@ import module from "@hyzyla/pdfium/pdfium.wasm?url";
 import { expose } from "comlink";
 import Vips from "wasm-vips";
 import type { setDocImagesWrapper } from "./App.tsx";
+import type { Setter } from "solid-js";
 
 const pdfium = await PDFiumLibrary.init({
   wasmUrl: module,
@@ -14,6 +15,13 @@ const vips = await Vips({
   // Optimize startup time by disabling the dynamic modules
   // Also fix vite build. jxl wasm is not imported correctly.
   dynamicLibraries: [],
+
+  onRuntimeInitialized() {
+    console.log("Vips runtime initialized");
+    postMessage({
+      type: "vips-ready",
+    });
+  },
 });
 
 async function renderFunction(
@@ -30,18 +38,21 @@ console.log("Vips version", vips.version());
 
 let doc: PDFiumDocument | undefined = undefined;
 
-export const obj = {
-  loadPDF: async (file: Uint8Array) => {
+export class obj {
+  static ready = (setIsReady: Setter<boolean>) => {
+    setIsReady(true);
+  };
+  static loadPDF = async (file: Uint8Array) => {
     doc = await pdfium.loadDocument(file);
     console.log("Loaded PDF document in worker:", doc);
-  },
-  pageCount: (): number => {
+  };
+  static pageCount = (): number => {
     if (!doc) {
       throw new Error("Document not loaded");
     }
     return doc.getPageCount();
-  },
-  renderPDF: async function (
+  };
+  static renderPDF = async function (
     // target: SetStoreFunction<(string | undefined)[]>,
     pageIndex: number,
     target: typeof setDocImagesWrapper,
@@ -75,7 +86,7 @@ export const obj = {
     //   }),
     // );
     // }
-  },
-};
+  };
+}
 
 expose(obj);

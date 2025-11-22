@@ -1,6 +1,7 @@
 import { clsx } from "clsx";
 import { proxy, transfer, wrap } from "comlink";
 import { createSignal, For, onCleanup, onMount, Show } from "solid-js";
+import type { JSX } from "solid-js/jsx-runtime";
 import { render } from "solid-js/web";
 import { DropZone } from "./DropZone.tsx";
 import _styles from "./main.css?inline";
@@ -24,6 +25,8 @@ const [filePageCount, setFilePageCount] = createSignal(-1);
 
 const [docImages, setDocImages] = createSignal<Array<string | undefined>>([]);
 
+const [isReady, setIsReady] = createSignal(false);
+
 const [w, setW] = createSignal<WindowProxy | null>(null);
 
 const OVERVIEW = 0,
@@ -38,6 +41,14 @@ export function setDocImagesWrapper(index: number, url: string) {
     return newArr;
   });
 }
+
+_worker.addEventListener("message", (event) => {
+  if (event.data.type === "vips-ready") {
+    setIsReady(true);
+  }
+});
+
+const data = await fetchPDF();
 
 const handler = (e: KeyboardEvent) => {
   console.log("global key:", e.key);
@@ -100,10 +111,6 @@ const handleFileSelect =
     }
   };
 
-function sleep(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
 const nextPage = () => {
   if (filePageCount() <= 0) return;
   setGlobalCount((prev) => Math.min(prev + 1, filePageCount() - 1));
@@ -153,11 +160,10 @@ function App() {
   //   console.log(f);
   // }
 
-  onMount(async () => {
+  onMount(() => {
     // I don't know why but ...
-    await sleep(1500);
     // if url has ?file=..., load that file
-    await fetchPDF();
+    console.log("onMount called ???");
   });
 
   onMount(() => {
@@ -166,158 +172,171 @@ function App() {
   });
 
   return (
-    <>
-      <header></header>
-      <main class="mx-10 my-10">
-        <Show when={filePageCount() > 0} fallback={<SelectFile />}>
-          <Show
-            when={viewMode() === PRESENTER}
-            fallback={
-              <div class="mb-20 grid grid-cols-3 gap-4 p-4">
-                <For each={Array(filePageCount()).fill(0)}>
-                  {(_, index) => (
-                    <div
-                      class={clsx(
-                        "aspect-video cursor-pointer outline transition-all",
-                        {
-                          "outline-cat-teal outline-4":
-                            index() === globalCount(),
-                          "outline-cat-surface2 hover:outline-4":
-                            index() !== globalCount(),
-                        },
-                      )}
-                      onClick={() => setGlobalCount(index())}
-                    >
-                      <Show when={docImages()[index()]}>
-                        <img
-                          src={docImages()[index()]}
-                          class="h-full object-cover object-left"
-                        />
-                      </Show>
-                    </div>
-                  )}
-                </For>
+    <Layout>
+      <Show when={filePageCount() > 0} fallback={<SelectFile />}>
+        <Show
+          when={viewMode() === PRESENTER}
+          fallback={
+            <div class="mb-20 grid grid-cols-3 gap-4 p-4">
+              <For each={Array(filePageCount()).fill(0)}>
+                {(_, index) => (
+                  <div
+                    class={clsx(
+                      "aspect-video cursor-pointer outline transition-all",
+                      {
+                        "outline-cat-teal outline-4": index() === globalCount(),
+                        "outline-cat-surface2 hover:outline-4":
+                          index() !== globalCount(),
+                      },
+                    )}
+                    onClick={() => setGlobalCount(index())}
+                  >
+                    <Show when={docImages()[index()]}>
+                      <img
+                        src={docImages()[index()]}
+                        class="h-full object-cover object-left"
+                      />
+                    </Show>
+                  </div>
+                )}
+              </For>
+            </div>
+          }
+        >
+          {/* Left: hint */}
+          {/* Right Top: Current page */}
+          {/* Right Bottom: Next page */}
+          <div class="grid h-full grid-cols-21 gap-4">
+            <div class="col-span-13 flex items-center justify-center">
+              <div class="aspect-video overflow-hidden">
+                <Show when={docImages()[globalCount()]}>
+                  <img
+                    src={docImages()[globalCount()]}
+                    alt="current slide"
+                    class="aspect-video h-full object-cover object-right"
+                  />
+                </Show>
               </div>
-            }
+            </div>
+            <div class="col-span-8 flex flex-col items-center justify-center gap-4">
+              <div class="aspect-video overflow-hidden">
+                <Show when={docImages()[globalCount()]}>
+                  <img
+                    src={docImages()[globalCount()]}
+                    alt="current slide"
+                    class="aspect-video h-full object-cover object-left"
+                  />
+                </Show>
+              </div>
+              <div class="aspect-video overflow-hidden">
+                <Show when={docImages()[globalCount() + 1]}>
+                  <img
+                    src={docImages()[globalCount() + 1]}
+                    alt="next slide"
+                    class="aspect-video h-full cursor-pointer object-cover object-left opacity-50"
+                    onclick={nextPage}
+                  />
+                </Show>
+              </div>
+            </div>
+          </div>
+          {/* Bottom: notes */}
+        </Show>
+        {/* Control buttons */}
+        <div class="pointer-events-none fixed bottom-4 left-4 flex justify-between gap-6 p-4">
+          <CircleButton
+            onClick={previousPage}
+            classIcon="icon-[fluent--arrow-left-24-regular]"
+            title="Previous page"
+          />
+          <CircleButton
+            onClick={nextPage}
+            classIcon="icon-[fluent--arrow-right-24-regular]"
+            title="Next page"
+          />
+          <div
+            class="text-cat-subtext0/50 outline-cat-subtext0/50 hover:outline-cat-subtext0 bg-cat-surface0/50 dark:bg-cat-surface0/70 hover:bg-cat-surface0/80 pointer-events-auto relative flex h-8 w-20 cursor-pointer place-content-between place-items-center rounded-full outline backdrop-blur-md transition-all"
+            onclick={() => {
+              setViewMode((prev) => (prev === OVERVIEW ? PRESENTER : OVERVIEW));
+            }}
           >
-            {/* Left: hint */}
-            {/* Right Top: Current page */}
-            {/* Right Bottom: Next page */}
-            <div class="grid h-full grid-cols-21 gap-4">
-              <div class="col-span-13 flex items-center justify-center">
-                <div class="aspect-video overflow-hidden">
-                  <Show when={docImages()[globalCount()]}>
-                    <img
-                      src={docImages()[globalCount()]}
-                      alt="current slide"
-                      class="aspect-video h-full object-cover object-right"
-                    />
-                  </Show>
-                </div>
-              </div>
-              <div class="col-span-8 flex flex-col items-center justify-center gap-4">
-                <div class="aspect-video overflow-hidden">
-                  <Show when={docImages()[globalCount()]}>
-                    <img
-                      src={docImages()[globalCount()]}
-                      alt="current slide"
-                      class="aspect-video h-full object-cover object-left"
-                    />
-                  </Show>
-                </div>
-                <div class="aspect-video overflow-hidden">
-                  <Show when={docImages()[globalCount() + 1]}>
-                    <img
-                      src={docImages()[globalCount() + 1]}
-                      alt="next slide"
-                      class="aspect-video h-full cursor-pointer object-cover object-left opacity-50"
-                      onclick={nextPage}
-                    />
-                  </Show>
-                </div>
-              </div>
-            </div>
-            {/* Bottom: notes */}
-          </Show>
-          {/* Control buttons */}
-          <div class="pointer-events-none fixed bottom-4 left-4 flex justify-between gap-6 p-4">
-            <CircleButton
-              onClick={previousPage}
-              classIcon="icon-[fluent--arrow-left-24-regular]"
-              title="Previous page"
-            />
-            <CircleButton
-              onClick={nextPage}
-              classIcon="icon-[fluent--arrow-right-24-regular]"
-              title="Next page"
-            />
             <div
-              class="text-cat-subtext0/50 outline-cat-subtext0/50 hover:outline-cat-subtext0 bg-cat-surface0/50 dark:bg-cat-surface0/70 hover:bg-cat-surface0/80 pointer-events-auto relative flex h-8 w-20 cursor-pointer place-content-between place-items-center rounded-full outline backdrop-blur-md transition-all"
-              onclick={() => {
-                setViewMode((prev) =>
-                  prev === OVERVIEW ? PRESENTER : OVERVIEW,
-                );
-              }}
+              class={clsx(
+                "z-20 grid aspect-square h-full place-items-center rounded-full",
+                {
+                  "text-cat-surface0/70 hover:outline-cat-subtext0 hover:text-cat-surface0":
+                    viewMode() === OVERVIEW,
+                },
+                {
+                  "": viewMode() !== OVERVIEW,
+                },
+              )}
             >
-              <div
-                class={clsx(
-                  "z-20 grid aspect-square h-full place-items-center rounded-full",
-                  {
-                    "text-cat-surface0/70 hover:outline-cat-subtext0 hover:text-cat-surface0":
-                      viewMode() === OVERVIEW,
-                  },
-                  {
-                    "": viewMode() !== OVERVIEW,
-                  },
-                )}
-              >
-                <button class="icon-[fluent--grid-24-filled] pointer-events-none aspect-square h-full" />
-              </div>
-              <div
-                class={clsx(
-                  "z-20 grid aspect-square h-full place-items-center rounded-full",
-                  {
-                    "text-cat-surface0/70 hover:outline-cat-subtext0 hover:text-cat-surface0":
-                      viewMode() !== OVERVIEW,
-                  },
-                  {
-                    "": viewMode() === OVERVIEW,
-                  },
-                )}
-              >
-                <button class="icon-[fluent--content-view-gallery-24-filled] pointer-events-none aspect-square h-full" />
-              </div>
-              <div
-                class={clsx(
-                  "bg-cat-subtext0/50 hover:bg-cat-subtext0/80 text-cat-surface0/70 absolute z-10 aspect-square h-full rounded-full border-4 border-transparent bg-clip-padding transition-all ease-in",
-                  viewMode() === OVERVIEW ? "left-0" : "left-0 translate-x-12",
-                )}
-              />
+              <button class="icon-[fluent--grid-24-filled] pointer-events-none aspect-square h-full" />
             </div>
-            <CircleButton
-              onClick={() => {
-                if (!w()) {
-                  popup();
-                } else {
-                  closePopup();
-                }
-              }}
-              // iconClass="icon-[fluent--window-new-24-filled]"
-              classIcon="icon-[mdi--projector] scale-125"
-              toggled={!!w()}
-              title="Show slide in new window"
-              toggledTitle="Close slide window"
+            <div
+              class={clsx(
+                "z-20 grid aspect-square h-full place-items-center rounded-full",
+                {
+                  "text-cat-surface0/70 hover:outline-cat-subtext0 hover:text-cat-surface0":
+                    viewMode() !== OVERVIEW,
+                },
+                {
+                  "": viewMode() === OVERVIEW,
+                },
+              )}
+            >
+              <button class="icon-[fluent--content-view-gallery-24-filled] pointer-events-none aspect-square h-full" />
+            </div>
+            <div
+              class={clsx(
+                "bg-cat-subtext0/50 hover:bg-cat-subtext0/80 text-cat-surface0/70 absolute z-10 aspect-square h-full rounded-full border-4 border-transparent bg-clip-padding transition-all ease-in",
+                viewMode() === OVERVIEW ? "left-0" : "left-0 translate-x-12",
+              )}
             />
           </div>
-          {/* ends */}
-        </Show>
-      </main>
-      <footer></footer>
-    </>
+          <CircleButton
+            onClick={() => {
+              if (!w()) {
+                popup();
+              } else {
+                closePopup();
+              }
+            }}
+            // iconClass="icon-[fluent--window-new-24-filled]"
+            classIcon="icon-[mdi--projector] scale-125"
+            toggled={!!w()}
+            title="Show slide in new window"
+            toggledTitle="Close slide window"
+          />
+        </div>
+        {/* ends */}
+      </Show>
+    </Layout>
   );
 }
 
-async function fetchPDF(url?: string) {
+function Loading() {
+  onCleanup(() => {
+    if (data) {
+      handleFileSelect("no-notes")(data);
+    }
+    console.log("Loading unmounted");
+  });
+  return <p>Loading...</p>;
+}
+
+function Layout(props: { children: JSX.Element }) {
+  return (
+    <Show when={isReady()} fallback={<Loading />}>
+      <header></header>
+      <main class="mx-10 my-10">{props.children}</main>
+      <footer></footer>
+    </Show>
+  );
+}
+
+async function fetchPDF(url?: string): Promise<File | undefined> {
   console.log(url);
   const params = url
     ? new URLSearchParams(new URL(url, window.location).search)
@@ -335,7 +354,7 @@ async function fetchPDF(url?: string) {
     const fileName = fileUrl.split("/").pop() || "downloaded.pdf";
     const file = new File([blob], fileName, { type: blob.type });
     console.log(res);
-    handleFileSelect("no-notes")(file);
+    return file;
   }
 }
 
@@ -391,7 +410,11 @@ function SelectFile() {
                   return;
                 }
                 e.preventDefault();
-                fetchPDF("/?file=example.pdf");
+                fetchPDF("/?file=example.pdf").then((file) => {
+                  if (file) {
+                    handleFileSelect("no-notes")(file);
+                  }
+                });
               }}
             >
               Touying Metropolis demo

@@ -19,6 +19,6 @@
     "dev:start": "fastly compute serve",
     "fastly:deploy": "fastly compute publish",
     "fastly:publish": "compute-js-static-publish publish-content",
-    "build": "js-compute-runtime ./src/index.js ./bin/main.wasm"
+    "build": "js-compute-runtime ./src/index.js ./bin/main.wasm --enable-aot"
   }
 }

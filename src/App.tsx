@@ -133,6 +133,9 @@ function popup() {
   const styles = new (w().CSSStyleSheet)();
   styles.replaceSync(_styles);
   w()?.document.adoptedStyleSheets?.push(styles);
+  w()?.addEventListener("beforeunload", () => {
+    setW(null);
+  });
   render(() => <PopupRoot />, w()!.document!.querySelector("body")!);
 }
 

@@ -27,7 +27,7 @@ jobs:
             target/
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
-      - uses: supplypike/setup-bin@v4
+      - uses: supplypike/setup-bin@v5
         with:
           uri: "https://github.com/WebAssembly/binaryen/releases/download/version_125/binaryen-version_125-aarch64-linux.tar.gz"
           name: "wasm-opt"

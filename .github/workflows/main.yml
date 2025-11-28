@@ -15,7 +15,7 @@ jobs:
     env:
       RUSTFLAGS: -Dwarnings -Ctarget-feature=+simd128,+bulk-memory,+mutable-globals
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - uses: actions/cache@v4
         with:

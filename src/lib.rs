@@ -114,3 +114,35 @@ pub fn bitmap_to_png(rgba_data: &[u8], width: u32, height: u32) -> Result<Vec<u8
     raw.create_optimized_png(&option)
         .map_err(|e| JsValue::from_str(&format!("Failed to encode PNG: {:?}", e)))
 }
+
+#[cfg(feature = "png")]
+#[wasm_bindgen]
+pub fn bitmap_to_png(rgba_data: &[u8], width: u32, height: u32) -> Result<Vec<u8>, JsValue> {
+    use png::Encoder;
+    use std::io::Cursor;
+
+    let expected_len = (width * height * 4) as usize;
+    if rgba_data.len() != expected_len {
+        return Err(JsValue::from_str(&format!(
+            "Invalid data length. Expected {}, got {}",
+            expected_len,
+            rgba_data.len()
+        )));
+    }
+
+    let mut png_data = Vec::new();
+    {
+        let mut cursor = Cursor::new(&mut png_data);
+        let mut encoder = Encoder::new(&mut cursor, width, height);
+        encoder.set_color(png::ColorType::Rgba);
+        encoder.set_depth(png::BitDepth::Eight);
+        encoder.set_compression(png::Compression::Balanced);
+        let mut writer = encoder
+            .write_header()
+            .map_err(|e| JsValue::from_str(&format!("Failed to write PNG header: {}", e)))?;
+        writer
+            .write_image_data(rgba_data)
+            .map_err(|e| JsValue::from_str(&format!("Failed to write PNG data: {}", e)))?;
+    }
+    Ok(png_data)
+}

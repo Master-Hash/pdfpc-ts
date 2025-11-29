@@ -38,7 +38,9 @@ jobs:
         with:
           tool: wasm-bindgen@0.2.106
       - run: |
+          rustup default nightly
           rustup target add wasm32-unknown-unknown
+          rustup component add rust-src --toolchain nightly-aarch64-unknown-linux-gnu
 
       - name: Set up Fastly CLI
         uses: fastly/compute-actions/setup@v12
@@ -61,11 +63,10 @@ jobs:
         run: pnpm install && pnpm --prefix ./compute-js install
 
       - run: |
-          cargo build --release --target wasm32-unknown-unknown
+          cargo +nightly build --release --target wasm32-unknown-unknown --no-default-features -F zune-png -Z build-std=panic_abort,std
           wasm-bindgen ./target/wasm32-unknown-unknown/release/bitmap_to_png.wasm --out-dir ./pkg --typescript --target web
           wasm-opt ./pkg/bitmap_to_png_bg.wasm -o ./pkg/bitmap_to_png_bg.wasm -Oz --dce --enable-simd --enable-bulk-memory --enable-nontrapping-float-to-int --enable-mutable-globals
       - run: pnpm run build
-
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
         with:

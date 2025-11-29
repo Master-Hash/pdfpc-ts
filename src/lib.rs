@@ -87,5 +87,9 @@ pub fn bitmap_to_png(rgba_data: &[u8], width: u32, height: u32) -> Result<Vec<u8
     );
 
     let mut encoder = zune_png::PngEncoder::new(rgba_data, option);
-    Ok(encoder.encode())
+    let mut png_data = Vec::new();
+    let _ = encoder
+        .encode(&mut png_data)
+        .map_err(|e| JsValue::from_str(&format!("Failed to encode PNG: {:?}", e)))?;
+    Ok(png_data)
 }

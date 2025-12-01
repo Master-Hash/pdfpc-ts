@@ -24,7 +24,7 @@
     "@iconify/tailwind": "^1.2.0",
     "@tailwindcss/vite": "^4.1.17",
     "@types/node": "^24.10.1",
-    "prettier": "^3.7.1",
+    "prettier": "^3.7.3",
     "prettier-plugin-tailwindcss": "^0.7.1",
     "solid-devtools": "^0.34.4",
     "typescript": "^5.9.3",

@@ -1,11 +1,14 @@
+import type { JSX } from "solid-js/jsx-runtime";
+
 import { clsx } from "clsx";
 import { proxy, transfer, wrap } from "comlink";
 import { createSignal, For, onCleanup, onMount, Show } from "solid-js";
-import type { JSX } from "solid-js/jsx-runtime";
 import { render } from "solid-js/web";
+
+import type { obj } from "./pdfium-worker.ts";
+
 import { DropZone } from "./DropZone.tsx";
 import _styles from "./main.css?inline";
-import type { obj } from "./pdfium-worker.ts";
 
 const mainStyles = new window.CSSStyleSheet();
 mainStyles.replaceSync(_styles);
@@ -95,7 +98,7 @@ function PopupRoot() {
 }
 
 const handleFileSelect =
-  (type: "no-notes" | "notes-right") => async (selectedFile: File) => {
+  (_type: "no-notes" | "notes-right") => async (selectedFile: File) => {
     console.log("Selected file:", selectedFile);
     const u =
       "bytes" in Blob.prototype
@@ -326,7 +329,7 @@ function App() {
 function Loading() {
   onCleanup(() => {
     if (data) {
-      handleFileSelect("no-notes")(data);
+      void handleFileSelect("no-notes")(data);
     }
     console.log("Loading unmounted");
   });
@@ -417,9 +420,9 @@ function SelectFile() {
                   return;
                 }
                 e.preventDefault();
-                fetchPDF("/?file=example.pdf").then((file) => {
+                void fetchPDF("/?file=example.pdf").then((file) => {
                   if (file) {
-                    handleFileSelect("no-notes")(file);
+                    void handleFileSelect("no-notes")(file);
                   }
                 });
               }}

@@ -7,6 +7,8 @@
     "dev": "vite --configLoader native",
     "build": "vite build --configLoader native",
     "preview": "vite preview --configLoader native",
+    "fmt": "oxfmt",
+    "lint": "oxlint --type-aware",
     "deploy": "wrangler deploy"
   },
   "dependencies": {
@@ -24,13 +26,14 @@
     "@iconify/tailwind": "^1.2.0",
     "@tailwindcss/vite": "^4.1.17",
     "@types/node": "^24.10.1",
-    "prettier": "^3.7.3",
-    "prettier-plugin-tailwindcss": "^0.7.1",
+    "eslint-plugin-better-tailwindcss": "^3.7.11",
+    "oxfmt": "^0.16.0",
+    "oxlint": "^1.31.0",
+    "oxlint-tsgolint": "^0.8.3",
     "solid-devtools": "^0.34.4",
     "typescript": "^5.9.3",
-    "vite": "npm:rolldown-vite@7.2.8",
+    "vite": "^8.0.0-beta.0",
     "vite-plugin-solid": "^2.11.10",
-    "vite-plugin-standard-css-modules": "^0.0.11",
     "wrangler": "^4.51.0"
   },
   "engines": {

@@ -1,6 +1,7 @@
+import { PublisherServer } from "@fastly/compute-js-static-publish";
 /// <reference types="@fastly/js-compute" />
 import { env } from "fastly:env";
-import { PublisherServer } from "@fastly/compute-js-static-publish";
+
 import rc from "../static-publish.rc.js";
 const publisherServer = PublisherServer.fromStaticPublishRc(rc);
 

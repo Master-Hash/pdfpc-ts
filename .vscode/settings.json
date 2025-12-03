@@ -1,0 +1,11 @@
+{
+    "[javascript][typescript][javascriptreact][typescriptreact]": {
+        "editor.defaultFormatter": "oxc.oxc-vscode"
+    },
+    "chat.disableAIFeatures": true,
+    "rust-analyzer.cargo.features": [
+        "png"
+    ],
+    "rust-analyzer.cargo.noDefaultFeatures": true,
+    "rust-analyzer.cargo.target": "wasm32-unknown-unknown"
+}

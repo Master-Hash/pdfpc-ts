@@ -12,8 +12,8 @@ importers:
         specifier: ^2.1.9
         version: 2.1.9
       '@iconify-json/fluent':
-        specifier: ^1.2.35
-        version: 1.2.35
+        specifier: ^1.2.36
+        version: 1.2.36
       '@iconify-json/mdi':
         specifier: ^1.2.3
         version: 1.2.3
@@ -46,8 +46,8 @@ importers:
         specifier: ^24.10.1
         version: 24.10.1
       eslint-plugin-better-tailwindcss:
-        specifier: ^3.7.11
-        version: 3.7.11(eslint@9.39.1(jiti@2.6.1))(tailwindcss@4.1.17)
+        specifier: ^3.8.0
+        version: 3.8.0(eslint@9.39.1(jiti@2.6.1))(tailwindcss@4.1.17)
       oxfmt:
         specifier: ^0.16.0
         version: 0.16.0
@@ -70,8 +70,8 @@ importers:
         specifier: ^2.11.10
         version: 2.11.10(solid-js@1.9.10)(vite@8.0.0-beta.0(@types/node@24.10.1)(esbuild@0.25.12)(jiti@2.6.1)(terser@5.44.1))
       wrangler:
-        specifier: ^4.52.1
-        version: 4.52.1
+        specifier: ^4.53.0
+        version: 4.53.0
 
 packages:
 
@@ -169,11 +169,11 @@ packages:
     resolution: {integrity: sha512-Nu8ahitGFFJztxUml9oD/DLb7Z28C8cd8F46IVQ7y5Btz575pvMY8AqZsXkX7Gds29eCKdMgIHjIvzskHgPSFg==}
     engines: {node: '>=18.0.0'}
 
-  '@cloudflare/unenv-preset@2.7.12':
-    resolution: {integrity: sha512-SIBo+k58R9OyBsxF1jL6GdL7XHbzatT86c0be+UY5v5tg6TAuJ1/2QsRuC3pHgKVHile1HcJqEEORoS9hv8hNw==}
+  '@cloudflare/unenv-preset@2.7.13':
+    resolution: {integrity: sha512-NulO1H8R/DzsJguLC0ndMuk4Ufv0KSlN+E54ay9rn9ZCQo0kpAPwwh3LhgpZ96a3Dr6L9LqW57M4CqC34iLOvw==}
     peerDependencies:
       unenv: 2.0.0-rc.24
-      workerd: ^1.20251125.0
+      workerd: ^1.20251202.0
     peerDependenciesMeta:
       workerd:
         optional: true
@@ -594,8 +594,8 @@ packages:
   '@hyzyla/pdfium@2.1.9':
     resolution: {integrity: sha512-c2T59buVQjjsqkuxjcUMQqy+M8CssAnK856ZBnzcy2KOauHSgJUOZIcsrXUR0poIh4RK9FYKD7PbyqjodooxUg==}
 
-  '@iconify-json/fluent@1.2.35':
-    resolution: {integrity: sha512-OsbJPrIsEmnlLvgGBSyc6A27C2DvJwyZ+3Jb2NA8GlcixI9J1GEZhOo0MJZoTLf0GBqaSwhejxiMc+OT1f19WA==}
+  '@iconify-json/fluent@1.2.36':
+    resolution: {integrity: sha512-DhxwOu5Qiq09o2ehHeUK0I9lC01OeWFlxXP7pIslM0vbi8VuplrrJ7kMg21GJy87iOCevzxf6gTU7TLPGgSknw==}
 
   '@iconify-json/mdi@1.2.3':
     resolution: {integrity: sha512-O3cLwbDOK7NNDf2ihaQOH5F9JglnulNDFV7WprU2dSoZu3h3cWH//h74uQAB87brHmvFVxIOkuBX2sZSzYhScg==}
@@ -1184,8 +1184,8 @@ packages:
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
 
-  baseline-browser-mapping@2.9.0:
-    resolution: {integrity: sha512-Mh++g+2LPfzZToywfE1BUzvZbfOY52Nil0rn9H1CPC5DJ7fX+Vir7nToBeoiSbB1zTNeGYbELEvJESujgGrzXw==}
+  baseline-browser-mapping@2.9.4:
+    resolution: {integrity: sha512-ZCQ9GEWl73BVm8bu5Fts8nt7MHdbt5vY9bP6WGnUh+r3l8M7CgfyTlwsgCbMC66BNxPr6Xoce3j66Ms5YUQTNA==}
     hasBin: true
 
   blake3-wasm@2.1.5:
@@ -1276,8 +1276,8 @@ packages:
     resolution: {integrity: sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ==}
     engines: {node: '>=8'}
 
-  electron-to-chromium@1.5.263:
-    resolution: {integrity: sha512-DrqJ11Knd+lo+dv+lltvfMDLU27g14LMdH2b0O3Pio4uk0x+z7OR+JrmyacTPN2M8w3BrZ7/RTwG3R9B7irPlg==}
+  electron-to-chromium@1.5.266:
+    resolution: {integrity: sha512-kgWEglXvkEfMH7rxP5OSZZwnaDWT7J9EoZCujhnpLbfi0bbNtRkgdX2E3gt0Uer11c61qCYktB3hwkAS325sJg==}
 
   enhanced-resolve@5.18.3:
     resolution: {integrity: sha512-d4lC8xfavMeBjzGr2vECC3fsGXziXZQyJxD868h2M/mBI3PwAuODxAkLkq5HYuvrPYcUtiLzsTo8U3PgX3Ocww==}
@@ -1308,8 +1308,8 @@ packages:
     resolution: {integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==}
     engines: {node: '>=10'}
 
-  eslint-plugin-better-tailwindcss@3.7.11:
-    resolution: {integrity: sha512-A2x5UrBoYLfZLMGvXBq/7epVMKNMxCkDRgRO1w/N1yQbFYM0L1yk6qDZV1l6Otrl0hNuBHSKFG3Uw5TDoSGStA==}
+  eslint-plugin-better-tailwindcss@3.8.0:
+    resolution: {integrity: sha512-bRJVOb47d3ONK4Qb6Zt58ra37E8rMCexWy7RuNgLQZS/Ch92oLRFBupa/s+FB1O9XRdph9ZMCXBiEFKc4gAGTQ==}
     engines: {node: ^20.11.0 || >=21.2.0}
     peerDependencies:
       eslint: ^7.0.0 || ^8.0.0 || ^9.0.0
@@ -1601,8 +1601,8 @@ packages:
     engines: {node: '>=10.0.0'}
     hasBin: true
 
-  miniflare@4.20251202.0:
-    resolution: {integrity: sha512-Pa5iBAVzzVT/yr7rcyr75ETm5IGCpdT61foGx+6jDj+vzISNfWZgEcSxWk1nlJboJumUJ10kC498hQudpdbDWg==}
+  miniflare@4.20251202.1:
+    resolution: {integrity: sha512-cRp2QNgnt9wpLMoNs4MOzzomyfe9UTS9sPRxIpUvxMl+mweCZ0FHpWWQvCnU7wWlfAP8VGZrHwqSsV5ERA6ahQ==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -1886,8 +1886,8 @@ packages:
   unenv@2.0.0-rc.24:
     resolution: {integrity: sha512-i7qRCmY42zmCwnYlh9H2SvLEypEFGye5iRmEMKjcGi7zk9UquigRjFtTLz0TYqr0ZGLZhaMHl/foy1bZR+Cwlw==}
 
-  update-browserslist-db@1.2.0:
-    resolution: {integrity: sha512-Dn+NlSF/7+0lVSEZ57SYQg6/E44arLzsVOGgrElBn/BlG1B8WKdbLppOocFrXwRNTkNlgdGNaBgH1o0lggDPiw==}
+  update-browserslist-db@1.2.2:
+    resolution: {integrity: sha512-E85pfNzMQ9jpKkA7+TJAi4TJN+tBCuWh5rUcS/sv6cFi+1q9LYDwDI5dpUL0u/73EElyQ8d3TEaeW4sPedBqYA==}
     hasBin: true
     peerDependencies:
       browserslist: '>= 4.21.0'
@@ -1967,8 +1967,8 @@ packages:
     engines: {node: '>=16'}
     hasBin: true
 
-  wrangler@4.52.1:
-    resolution: {integrity: sha512-rIzDxzPnLAaqBF+SdHGd9Az0ELEWtIBwPp5diCR58p2F4C+KgNGGpPMFswMntuViQ2RKRgGbk4jIzStJoUUfjQ==}
+  wrangler@4.53.0:
+    resolution: {integrity: sha512-/wvnHlRnlHsqaeIgGbmcEJE5NFYdTUWHCKow+U5Tv2XwQXI9vXUqBwCLAGy/BwqyS5nnycRt2kppqCzgHgyb7Q==}
     engines: {node: '>=20.0.0'}
     hasBin: true
     peerDependencies:
@@ -2132,7 +2132,7 @@ snapshots:
     dependencies:
       mime: 3.0.0
 
-  '@cloudflare/unenv-preset@2.7.12(unenv@2.0.0-rc.24)(workerd@1.20251202.0)':
+  '@cloudflare/unenv-preset@2.7.13(unenv@2.0.0-rc.24)(workerd@1.20251202.0)':
     dependencies:
       unenv: 2.0.0-rc.24
     optionalDependencies:
@@ -2393,7 +2393,7 @@ snapshots:
 
   '@hyzyla/pdfium@2.1.9': {}
 
-  '@iconify-json/fluent@1.2.35':
+  '@iconify-json/fluent@1.2.36':
     dependencies:
       '@iconify/types': 2.0.0
 
@@ -2892,7 +2892,7 @@ snapshots:
 
   balanced-match@1.0.2: {}
 
-  baseline-browser-mapping@2.9.0: {}
+  baseline-browser-mapping@2.9.4: {}
 
   blake3-wasm@2.1.5: {}
 
@@ -2903,11 +2903,11 @@ snapshots:
 
   browserslist@4.28.1:
     dependencies:
-      baseline-browser-mapping: 2.9.0
+      baseline-browser-mapping: 2.9.4
       caniuse-lite: 1.0.30001759
-      electron-to-chromium: 1.5.263
+      electron-to-chromium: 1.5.266
       node-releases: 2.0.27
-      update-browserslist-db: 1.2.0(browserslist@4.28.1)
+      update-browserslist-db: 1.2.2(browserslist@4.28.1)
 
   buffer-from@1.1.2:
     optional: true
@@ -2970,7 +2970,7 @@ snapshots:
 
   detect-libc@2.1.2: {}
 
-  electron-to-chromium@1.5.263: {}
+  electron-to-chromium@1.5.266: {}
 
   enhanced-resolve@5.18.3:
     dependencies:
@@ -3044,7 +3044,7 @@ snapshots:
 
   escape-string-regexp@4.0.0: {}
 
-  eslint-plugin-better-tailwindcss@3.7.11(eslint@9.39.1(jiti@2.6.1))(tailwindcss@4.1.17):
+  eslint-plugin-better-tailwindcss@3.8.0(eslint@9.39.1(jiti@2.6.1))(tailwindcss@4.1.17):
     dependencies:
       '@eslint/css-tree': 3.6.8
       enhanced-resolve: 5.18.3
@@ -3303,7 +3303,7 @@ snapshots:
 
   mime@3.0.0: {}
 
-  miniflare@4.20251202.0:
+  miniflare@4.20251202.1:
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       acorn: 8.14.0
@@ -3629,7 +3629,7 @@ snapshots:
     dependencies:
       pathe: 2.0.3
 
-  update-browserslist-db@1.2.0(browserslist@4.28.1):
+  update-browserslist-db@1.2.2(browserslist@4.28.1):
     dependencies:
       browserslist: 4.28.1
       escalade: 3.2.0
@@ -3686,13 +3686,13 @@ snapshots:
       '@cloudflare/workerd-linux-arm64': 1.20251202.0
       '@cloudflare/workerd-windows-64': 1.20251202.0
 
-  wrangler@4.52.1:
+  wrangler@4.53.0:
     dependencies:
       '@cloudflare/kv-asset-handler': 0.4.1
-      '@cloudflare/unenv-preset': 2.7.12(unenv@2.0.0-rc.24)(workerd@1.20251202.0)
+      '@cloudflare/unenv-preset': 2.7.13(unenv@2.0.0-rc.24)(workerd@1.20251202.0)
       blake3-wasm: 2.1.5
       esbuild: 0.27.0
-      miniflare: 4.20251202.0
+      miniflare: 4.20251202.1
       path-to-regexp: 6.3.0
       unenv: 2.0.0-rc.24
       workerd: 1.20251202.0

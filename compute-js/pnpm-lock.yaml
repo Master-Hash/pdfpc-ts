@@ -22,8 +22,8 @@ packages:
     resolution: {integrity: sha512-ju7Y4WeF0B9uMkSPHJgmT6ouEfSwbe9M1uR/YOnYZjBpxJjH9qzxIkJg/kf8NycVDyFJ2/lscmJ1E1uPiDQVRQ==}
     hasBin: true
 
-  '@bytecodealliance/jco@1.15.3':
-    resolution: {integrity: sha512-5Zd/PDQ2CVX8SKp57EALiGSN9qg7gpDRp+RUazcssdTzv/Ye22PTpJxQv98gLL4hcANJhnmqIIwdcJmT7tUGmw==}
+  '@bytecodealliance/jco@1.15.4':
+    resolution: {integrity: sha512-Lu5ZVPD+ethKrOCbfVe7zHwOH8JmhU1sDXBn/7WN4Zf/KcJc34YQmUQCjxrN5n4h9Q2ep3dcK8Gb7DeV1e2i7w==}
     hasBin: true
 
   '@bytecodealliance/preview2-shim@0.17.5':
@@ -480,8 +480,8 @@ packages:
   '@napi-rs/wasm-runtime@0.2.12':
     resolution: {integrity: sha512-ZVWUcfwY4E/yPitQJl481FjFo3K22D6qF0DuFH6Y/nbnE11GY5uguDxZMGXPQ8WQ0128MXQD7TnfHyK4oWoIJQ==}
 
-  '@napi-rs/wasm-runtime@1.0.7':
-    resolution: {integrity: sha512-SeDnOO0Tk7Okiq6DbXmmBODgOAb9dp9gjlphokTUxmt8U3liIP1ZsozBahH69j/RJv+Rfs6IwUKHTgQYJ/HBAw==}
+  '@napi-rs/wasm-runtime@1.1.0':
+    resolution: {integrity: sha512-Fq6DJW+Bb5jaWE69/qOE0D1TUN9+6uWhCeZpdnSBk14pjLcCWR7Q8n49PTSPHazM37JqrsdpEthXy2xn6jWWiA==}
 
   '@oxc-parser/binding-android-arm64@0.76.0':
     resolution: {integrity: sha512-1XJW/16CDmF5bHE7LAyPPmEEVnxSadDgdJz+xiLqBrmC4lfAeuAfRw3HlOygcPGr+AJsbD4Z5sFJMkwjbSZlQg==}
@@ -1049,12 +1049,12 @@ snapshots:
 
   '@bytecodealliance/componentize-js@0.19.3':
     dependencies:
-      '@bytecodealliance/jco': 1.15.3
+      '@bytecodealliance/jco': 1.15.4
       '@bytecodealliance/wizer': 10.0.0
       es-module-lexer: 1.7.0
       oxc-parser: 0.76.0
 
-  '@bytecodealliance/jco@1.15.3':
+  '@bytecodealliance/jco@1.15.4':
     dependencies:
       '@bytecodealliance/componentize-js': 0.19.3
       '@bytecodealliance/preview2-shim': 0.17.5
@@ -1266,7 +1266,7 @@ snapshots:
 
   '@fastly/js-compute@3.36.0':
     dependencies:
-      '@bytecodealliance/jco': 1.15.3
+      '@bytecodealliance/jco': 1.15.4
       '@bytecodealliance/weval': 0.3.4
       '@bytecodealliance/wizer': 7.0.5
       acorn: 8.15.0
@@ -1335,7 +1335,7 @@ snapshots:
 
   '@napi-rs/lzma-wasm32-wasi@1.4.5':
     dependencies:
-      '@napi-rs/wasm-runtime': 1.0.7
+      '@napi-rs/wasm-runtime': 1.1.0
     optional: true
 
   '@napi-rs/lzma-win32-arm64-msvc@1.4.5':
@@ -1374,7 +1374,7 @@ snapshots:
       '@tybys/wasm-util': 0.10.1
     optional: true
 
-  '@napi-rs/wasm-runtime@1.0.7':
+  '@napi-rs/wasm-runtime@1.1.0':
     dependencies:
       '@emnapi/core': 1.7.1
       '@emnapi/runtime': 1.7.1

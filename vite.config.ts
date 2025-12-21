@@ -4,12 +4,16 @@ import { defineConfig } from "vite";
 import solid from "vite-plugin-solid";
 // import { standardCssModules } from 'vite-plugin-standard-css-modules';
 
+const isBuild =
+  process.argv[1]?.includes("vite") && process.argv[2]?.includes("build");
+
 export default defineConfig({
   plugins: [
-    devtools({
-      /* features options - all disabled by default */
-      autoname: true, // e.g. enable autoname
-    }),
+    !isBuild &&
+      devtools({
+        /* features options - all disabled by default */
+        autoname: true, // e.g. enable autoname
+      }),
     solid({
       dev: true,
     }),

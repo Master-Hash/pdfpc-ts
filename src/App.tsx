@@ -1,6 +1,6 @@
 import type { JSX } from "solid-js/jsx-runtime";
 
-import { clsx } from "clsx";
+import { cx } from "classix";
 import { proxy, transfer, wrap } from "comlink";
 import { createSignal, For, onCleanup, onMount, Show } from "solid-js";
 import { render } from "solid-js/web";
@@ -84,7 +84,12 @@ function PopupRoot() {
   });
   return (
     <div class="aspect-video">
-      <div class="h-[min(100vh,calc(100vw*9/16))] w-[min(100vw,calc(100vh*16/9))] overflow-hidden">
+      <div
+        class={`
+          h-[min(100vh,calc(100vw*9/16))] w-[min(100vw,calc(100vh*16/9))]
+          overflow-hidden
+        `}
+      >
         <Show when={docImages()[globalCount()]}>
           <img
             src={docImages()[globalCount()]}
@@ -191,13 +196,14 @@ function App() {
               <For each={Array(filePageCount()).fill(0)}>
                 {(_, index) => (
                   <div
-                    class={clsx(
+                    class={cx(
                       "aspect-video cursor-pointer outline transition-all",
-                      {
-                        "outline-cat-teal outline-4": index() === globalCount(),
-                        "outline-cat-surface2 hover:outline-4":
-                          index() !== globalCount(),
-                      },
+                      index() === globalCount() && "outline-4 outline-cat-teal",
+                      index() !== globalCount() &&
+                        `
+                          outline-cat-surface2
+                          hover:outline-4
+                        `,
                     )}
                     onClick={() => setGlobalCount(index())}
                   >
@@ -228,7 +234,11 @@ function App() {
                 </Show>
               </div>
             </div>
-            <div class="col-span-8 flex flex-col items-center justify-center gap-4">
+            <div
+              class={`
+                col-span-8 flex flex-col items-center justify-center gap-4
+              `}
+            >
               <div class="aspect-video overflow-hidden">
                 <Show when={docImages()[globalCount()]}>
                   <img
@@ -243,7 +253,10 @@ function App() {
                   <img
                     src={docImages()[globalCount() + 1]}
                     alt="next slide"
-                    class="aspect-video h-full cursor-pointer object-cover object-left opacity-50"
+                    class={`
+                      aspect-video h-full cursor-pointer object-cover
+                      object-left opacity-50
+                    `}
                     onclick={nextPage}
                   />
                 </Show>
@@ -253,7 +266,12 @@ function App() {
           {/* Bottom: notes */}
         </Show>
         {/* Control buttons */}
-        <div class="pointer-events-none fixed bottom-4 left-4 flex justify-between gap-6 p-4">
+        <div
+          class={`
+            pointer-events-none fixed bottom-4 left-4 flex justify-between gap-6
+            p-4
+          `}
+        >
           <CircleButton
             onClick={previousPage}
             classIcon="icon-[fluent--arrow-left-24-regular]"
@@ -265,42 +283,57 @@ function App() {
             title="Next page"
           />
           <div
-            class="text-cat-subtext0/50 outline-cat-subtext0/50 hover:outline-cat-subtext0 bg-cat-surface0/50 dark:bg-cat-surface0/70 hover:bg-cat-surface0/80 pointer-events-auto relative flex h-8 w-20 cursor-pointer place-content-between place-items-center rounded-full outline backdrop-blur-md transition-all"
+            class={`
+              pointer-events-auto relative flex h-8 w-20 cursor-pointer
+              place-content-between place-items-center rounded-full
+              bg-cat-surface0/50 text-cat-subtext0/50 outline
+              outline-cat-subtext0/50 backdrop-blur-md transition-all
+              hover:bg-cat-surface0/80 hover:outline-cat-subtext0
+              dark:bg-cat-surface0/70
+            `}
             onclick={() => {
               setViewMode((prev) => (prev === OVERVIEW ? PRESENTER : OVERVIEW));
             }}
           >
             <div
-              class={clsx(
+              class={cx(
                 "z-20 grid aspect-square h-full place-items-center rounded-full",
-                {
-                  "text-cat-surface0/70 hover:outline-cat-subtext0 hover:text-cat-surface0":
-                    viewMode() === OVERVIEW,
-                },
-                {
-                  "": viewMode() !== OVERVIEW,
-                },
+                viewMode() === OVERVIEW &&
+                  `
+                    text-cat-surface0/70
+                    hover:text-cat-surface0 hover:outline-cat-subtext0
+                  `,
               )}
             >
-              <button class="icon-[fluent--grid-24-filled] pointer-events-none aspect-square h-full" />
+              <button class={`
+                pointer-events-none icon-[fluent--grid-24-filled] aspect-square
+                h-full
+              `} />
             </div>
             <div
-              class={clsx(
+              class={cx(
                 "z-20 grid aspect-square h-full place-items-center rounded-full",
-                {
-                  "text-cat-surface0/70 hover:outline-cat-subtext0 hover:text-cat-surface0":
-                    viewMode() !== OVERVIEW,
-                },
-                {
-                  "": viewMode() === OVERVIEW,
-                },
+                viewMode() !== OVERVIEW &&
+                  `
+                    text-cat-surface0/70
+                    hover:text-cat-surface0 hover:outline-cat-subtext0
+                  `,
               )}
             >
-              <button class="icon-[fluent--content-view-gallery-24-filled] pointer-events-none aspect-square h-full" />
+              <button class={`
+                pointer-events-none
+                icon-[fluent--content-view-gallery-24-filled] aspect-square
+                h-full
+              `} />
             </div>
             <div
-              class={clsx(
-                "bg-cat-subtext0/50 hover:bg-cat-subtext0/80 text-cat-surface0/70 absolute z-10 aspect-square h-full rounded-full border-4 border-transparent bg-clip-padding transition-all ease-in",
+              class={cx(
+                `
+                  absolute z-10 aspect-square h-full rounded-full border-4
+                  border-transparent bg-cat-subtext0/50 bg-clip-padding
+                  text-cat-surface0/70 transition-all ease-in
+                  hover:bg-cat-subtext0/80
+                `,
                 viewMode() === OVERVIEW ? "left-0" : "left-0 translate-x-12",
               )}
             />
@@ -377,20 +410,28 @@ function CircleButton(props: {
 }) {
   return (
     <div
-      class={clsx(
-        "pointer-events-auto grid h-8 w-8 cursor-pointer place-items-center rounded-full outline backdrop-blur-md transition-all",
-        {
-          // when toggled, highlight background, dim text
-          "bg-cat-subtext0/50 text-cat-surface0/70 outline-cat-subtext0/50 hover:outline-cat-subtext0 hover:text-cat-surface0 hover:bg-cat-subtext0/80":
-            props.toggled,
-          "text-cat-subtext0/50 outline-cat-subtext0/50 hover:outline-cat-subtext0 hover:text-cat-subtext0 bg-cat-surface0/50 dark:bg-cat-surface0/70 hover:bg-cat-surface0/80":
-            !props.toggled,
-        },
+      class={cx(
+        `
+          pointer-events-auto grid h-8 w-8 cursor-pointer place-items-center
+          rounded-full outline backdrop-blur-md transition-all
+        `,
+        props.toggled
+          ? `
+            bg-cat-subtext0/50 text-cat-surface0/70 outline-cat-subtext0/50
+            hover:bg-cat-subtext0/80 hover:text-cat-surface0
+            hover:outline-cat-subtext0
+          `
+          : `
+            bg-cat-surface0/50 text-cat-subtext0/50 outline-cat-subtext0/50
+            hover:bg-cat-surface0/80 hover:text-cat-subtext0
+            hover:outline-cat-subtext0
+            dark:bg-cat-surface0/70
+          `,
       )}
       onClick={props.onClick}
     >
       <button
-        class={clsx(props.classIcon, "cursor-pointer")}
+        class={cx(props.classIcon, "cursor-pointer")}
         title={props.toggled ? props.toggledTitle : props.title}
       />
     </div>
@@ -401,7 +442,12 @@ function SelectFile() {
   return (
     <>
       <h1 class="text-4xl font-extrabold">PDF Presenter View</h1>
-      <div class="mt-30 grid h-80 w-full grid-cols-2 gap-16 px-10 lg:px-20">
+      <div
+        class={`
+          mt-30 grid h-80 w-full grid-cols-2 gap-16 px-10
+          lg:px-20
+        `}
+      >
         <DropZone type="no-notes" onFileSelect={handleFileSelect("no-notes")} />
         <DropZone
           type="notes-right"

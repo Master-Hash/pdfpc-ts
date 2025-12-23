@@ -7,7 +7,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  dependabot:
+  dependabot-auto-merge:
     runs-on: ubuntu-slim
     if: github.event.pull_request.user.login == 'dependabot[bot]' && github.repository == 'Master-Hash/pdfpc-ts'
     steps:

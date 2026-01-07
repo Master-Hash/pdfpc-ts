@@ -22,8 +22,8 @@
     "classix": "^2.2.6",
     "comlink": "^4.4.2",
     "eslint-plugin-better-tailwindcss": "^3.8.0",
-    "oxfmt": "^0.21.0",
-    "oxlint": "^1.36.0",
+    "oxfmt": "^0.23.0",
+    "oxlint": "^1.38.0",
     "oxlint-tsgolint": "^0.10.1",
     "solid-devtools": "^0.34.4",
     "solid-js": "^1.9.10",
@@ -31,7 +31,7 @@
     "typescript": "^5.9.3",
     "vite": "^8.0.0-beta.5",
     "vite-plugin-solid": "^2.11.10",
-    "wrangler": "^4.56.0"
+    "wrangler": "^4.57.0"
   },
   "engines": {
     "node": ">=24.10.0"

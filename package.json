@@ -13,25 +13,25 @@
   },
   "devDependencies": {
     "@hyzyla/pdfium": "^2.1.9",
-    "@iconify-json/fluent": "^1.2.36",
+    "@iconify-json/fluent": "^1.2.37",
     "@iconify-json/mdi": "^1.2.3",
     "@iconify/tailwind": "^1.2.0",
     "@iconify/utils": "^3.1.0",
     "@tailwindcss/vite": "^4.1.18",
-    "@types/node": "^25.0.6",
+    "@types/node": "^25.0.9",
     "classix": "^2.2.6",
     "comlink": "^4.4.2",
     "eslint-plugin-better-tailwindcss": "^3.8.0",
-    "oxfmt": "^0.23.0",
-    "oxlint": "^1.38.0",
-    "oxlint-tsgolint": "^0.11.0",
+    "oxfmt": "^0.24.0",
+    "oxlint": "^1.39.0",
+    "oxlint-tsgolint": "^0.11.1",
     "solid-devtools": "^0.34.4",
     "solid-js": "^1.9.10",
     "tailwindcss": "^4.1.18",
     "typescript": "^5.9.3",
     "vite": "^8.0.0-beta.7",
     "vite-plugin-solid": "^2.11.10",
-    "wrangler": "^4.58.0"
+    "wrangler": "^4.59.2"
   },
   "engines": {
     "node": ">=24.10.0"

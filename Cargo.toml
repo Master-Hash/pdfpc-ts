@@ -11,7 +11,7 @@ image = { version = "0.25.9", default-features = false, features = [
   "bmp",
   "png"
 ], optional = true }
-oxipng = { version = "10.0.0", default-features = false, features = [
+oxipng = { version = "10.1.0", default-features = false, features = [
   "freestanding",
 ], optional = true }
 png = { version = "0.18.0", default-features = false, features = [

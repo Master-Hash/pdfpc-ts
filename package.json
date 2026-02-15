@@ -18,20 +18,20 @@
     "@iconify/tailwind": "^1.2.0",
     "@iconify/utils": "^3.1.0",
     "@tailwindcss/vite": "^4.1.18",
-    "@types/node": "^25.2.2",
+    "@types/node": "^25.2.3",
     "classix": "^2.2.6",
     "comlink": "^4.4.2",
-    "eslint-plugin-better-tailwindcss": "^4.1.1",
-    "oxfmt": "^0.28.0",
-    "oxlint": "^1.43.0",
-    "oxlint-tsgolint": "^0.11.5",
+    "eslint-plugin-better-tailwindcss": "^4.2.0",
+    "oxfmt": "^0.32.0",
+    "oxlint": "^1.47.0",
+    "oxlint-tsgolint": "^0.13.0",
     "solid-devtools": "^0.34.5",
     "solid-js": "^1.9.11",
     "tailwindcss": "^4.1.18",
     "typescript": "^5.9.3",
     "vite": "^8.0.0-beta.13",
     "vite-plugin-solid": "^2.11.10",
-    "wrangler": "^4.63.0"
+    "wrangler": "^4.65.0"
   },
   "engines": {
     "node": ">=24.10.0"

@@ -12,7 +12,7 @@
     "deploy": "wrangler deploy"
   },
   "devDependencies": {
-    "@hyzyla/pdfium": "^2.1.9",
+    "@hyzyla/pdfium": "^2.1.11",
     "@iconify-json/fluent": "^1.2.39",
     "@iconify-json/mdi": "^1.2.3",
     "@iconify/tailwind": "^1.2.0",

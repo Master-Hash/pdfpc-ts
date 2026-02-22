@@ -12,7 +12,7 @@
     "build": "js-compute-runtime ./src/index.js ./bin/main.wasm --enable-aot"
   },
   "dependencies": {
-    "@fastly/js-compute": "^3.39.4"
+    "@fastly/js-compute": "^3.40.0"
   },
   "devDependencies": {
     "@fastly/compute-js-static-publish": "^7.0.6"

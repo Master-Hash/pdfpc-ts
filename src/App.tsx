@@ -1,13 +1,12 @@
-import type { JSX } from "solid-js/jsx-runtime";
-
+import { render } from "@solidjs/web";
 import { cx } from "classix";
 import { proxy, transfer, wrap } from "comlink";
 import { createSignal, flush, For, onCleanup, onSettled, Show } from "solid-js";
-import { render } from "@solidjs/web";
-
-import type { obj } from "./pdfium-worker.ts";
+import type { JSX } from "solid-js/jsx-runtime";
 
 import { DropZone } from "./DropZone.tsx";
+import type { obj } from "./pdfium-worker.ts";
+
 import _styles from "./main.css?inline";
 
 const mainStyles = new window.CSSStyleSheet();

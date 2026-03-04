@@ -1,13 +1,11 @@
 import type { PDFiumDocument, PDFiumPageRenderOptions } from "@hyzyla/pdfium";
-import type { Setter } from "solid-js";
-
 import { PDFiumLibrary } from "@hyzyla/pdfium";
 import module from "@hyzyla/pdfium/pdfium.wasm?url";
 import { expose } from "comlink";
-
-import type { setDocImagesWrapper } from "./App.tsx";
+import type { Setter } from "solid-js";
 
 import init, { bitmap_to_png } from "../pkg/bitmap_to_png.js";
+import type { setDocImagesWrapper } from "./App.tsx";
 
 const [pdfium, _] = await Promise.all([
   PDFiumLibrary.init({

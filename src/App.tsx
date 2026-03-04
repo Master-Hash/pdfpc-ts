@@ -2,8 +2,8 @@ import type { JSX } from "solid-js/jsx-runtime";
 
 import { cx } from "classix";
 import { proxy, transfer, wrap } from "comlink";
-import { createSignal, For, onCleanup, onMount, Show } from "solid-js";
-import { render } from "solid-js/web";
+import { createSignal, flush, For, onCleanup, onSettled, Show } from "solid-js";
+import { render } from "@solidjs/web";
 
 import type { obj } from "./pdfium-worker.ts";
 
@@ -211,7 +211,7 @@ const handler = (e: KeyboardEvent) => {
 };
 
 function PopupRoot() {
-  onMount(() => {
+  onSettled(() => {
     w()?.window.addEventListener("keydown", handler);
   });
   onCleanup(() => w()?.window.removeEventListener("keydown", handler));
@@ -241,6 +241,7 @@ const handleFileSelect =
     try {
       await worker.loadPDF(transfer(u, [u.buffer]));
       setFilePageCount(await worker.pageCount());
+      flush();
       for (let i = 0; i < filePageCount(); i++) {
         await worker.renderPDF(i, proxy(setDocImagesWrapper));
       }
@@ -270,6 +271,7 @@ const previousPage = () => {
 function popup() {
   const _w = window.open("", "", "left=100,top=100,width=320,height=180");
   setW(_w);
+  flush();
   console.log(w());
 
   // todo: when does vite support css import attributes?
@@ -309,13 +311,13 @@ function App() {
   //   console.log(f);
   // }
 
-  onMount(() => {
+  onSettled(() => {
     // I don't know why but ...
     // if url has ?file=..., load that file
-    console.log("onMount called ???");
+    console.log("onSettled called ???");
   });
 
-  onMount(() => {
+  onSettled(() => {
     window.addEventListener("keydown", handler);
     onCleanup(() => window.removeEventListener("keydown", handler));
   });
@@ -397,7 +399,7 @@ function App() {
                       "aspect-video h-full cursor-pointer object-cover object-left opacity-50",
                       viewClasses[globalCount() + 1],
                     )}
-                    onclick={nextPage}
+                    onClick={nextPage}
                   />
                 </Show>
               </div>
@@ -419,7 +421,7 @@ function App() {
           />
           <div
             class="pointer-events-auto relative flex h-8 w-20 cursor-pointer place-content-between place-items-center rounded-full bg-cat-surface0/50 text-cat-subtext0/50 outline outline-cat-subtext0/50 transition-all hover:bg-cat-surface0/80 hover:outline-cat-subtext0 dark:bg-cat-surface0/70"
-            onclick={() => {
+            onClick={() => {
               document.startViewTransition(() => {
                 setViewMode((prev) =>
                   prev === OVERVIEW ? PRESENTER : OVERVIEW,
@@ -557,7 +559,7 @@ function SelectFile() {
           <li class="ml-4 list-disc underline">
             <a
               href="/?file=example.pdf"
-              onclick={(e) => {
+              onClick={(e) => {
                 // If holding Ctrl or Cmd, open in new tab
                 if (e.ctrlKey || e.metaKey || e.button === 1) {
                   return;

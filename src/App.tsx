@@ -358,7 +358,7 @@ function App() {
           {/* Right Bottom: Next page */}
           <div class="grid h-full grid-cols-21 gap-4">
             <div class="col-span-13 flex items-center justify-center">
-              <div class="relative aspect-video">
+              <div class="relative aspect-video w-full">
                 <Show when={docImages()[globalCount()]}>
                   <img
                     src={docImages()[globalCount()]}
@@ -375,7 +375,7 @@ function App() {
               </div>
             </div>
             <div class="col-span-8 flex flex-col items-center justify-center gap-4">
-              <div class="aspect-video overflow-hidden">
+              <div class="aspect-video w-full overflow-hidden">
                 <Show when={docImages()[globalCount()]}>
                   <img
                     src={docImages()[globalCount()]}
@@ -388,7 +388,7 @@ function App() {
                   />
                 </Show>
               </div>
-              <div class="aspect-video overflow-hidden">
+              <div class="aspect-video w-full overflow-hidden">
                 <Show when={docImages()[globalCount() + 1]}>
                   <img
                     src={docImages()[globalCount() + 1]}

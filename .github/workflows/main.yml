@@ -49,7 +49,7 @@ jobs:
           rustup component add rust-src --toolchain nightly-aarch64-unknown-linux-gnu
 
       - name: Set up Fastly CLI
-        uses: fastly/compute-actions/setup@v12
+        uses: fastly/compute-actions/setup@v13
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 

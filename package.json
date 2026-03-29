@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "@hyzyla/pdfium": "^2.1.12",
-    "@iconify-json/fluent": "^1.2.41",
+    "@iconify-json/fluent": "^1.2.43",
     "@iconify-json/mdi": "^1.2.3",
     "@iconify/tailwind": "^1.2.0",
     "@iconify/utils": "^3.1.0",
@@ -22,16 +22,16 @@
     "@types/node": "^25.5.0",
     "classix": "^2.2.11",
     "comlink": "^4.4.2",
-    "oxfmt": "^0.41.0",
-    "oxlint": "^1.56.0",
-    "oxlint-tsgolint": "^0.17.1",
+    "oxfmt": "^0.42.0",
+    "oxlint": "^1.57.0",
+    "oxlint-tsgolint": "^0.18.1",
     "solid-devtools": "^0.34.5",
     "solid-js": "2.0.0-beta.0",
     "tailwindcss": "^4.2.2",
     "typescript": "^5.9.3",
-    "vite": "8.0.1",
+    "vite": "8.0.3",
     "vite-plugin-solid": "3.0.0-next.3",
-    "wrangler": "^4.76.0"
+    "wrangler": "^4.78.0"
   },
   "engines": {
     "node": ">=24.10.0"

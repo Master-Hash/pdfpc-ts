@@ -19,7 +19,7 @@ jobs:
       contents: read
       pull-requests: write
     env:
-      RUSTFLAGS: -Dwarnings -Ctarget-feature=+simd128,+bulk-memory,+mutable-globals
+      RUSTFLAGS: -Dwarnings -Cpanic=unwind -Ctarget-feature=+simd128,+bulk-memory,+mutable-globals
     steps:
       - uses: actions/checkout@v6
 
@@ -69,7 +69,7 @@ jobs:
         run: pnpm install
 
       - run: |
-          cargo +nightly build --release --target wasm32-unknown-unknown --no-default-features -F png -Z build-std=panic_abort,std
+          cargo +nightly build --release --target wasm32-unknown-unknown --no-default-features -F png -Z build-std=panic_unwind,std
           wasm-bindgen ./target/wasm32-unknown-unknown/release/bitmap_to_png.wasm --out-dir ./pkg --typescript --target web
           wasm-opt ./pkg/bitmap_to_png_bg.wasm -o ./pkg/bitmap_to_png_bg.wasm -Oz --dce --enable-simd --enable-bulk-memory --enable-nontrapping-float-to-int --enable-mutable-globals
       - run: pnpm run build

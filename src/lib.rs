@@ -136,6 +136,7 @@ pub fn bitmap_to_png(rgba_data: &[u8], width: u32, height: u32) -> Result<Vec<u8
         let mut encoder = Encoder::new(&mut cursor, width, height);
         encoder.set_color(png::ColorType::Rgba);
         encoder.set_depth(png::BitDepth::Eight);
+        panic!("Just Testing");
         encoder.set_compression(png::Compression::Balanced);
         let mut writer = encoder
             .write_header()

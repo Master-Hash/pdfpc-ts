@@ -1,2 +1,7 @@
 packages:
   - compute-js
+allowBuilds:
+  esbuild: false
+  sharp: false
+  workerd: false
+autoInstallPeers: false

@@ -12,26 +12,26 @@
     "deploy": "wrangler deploy"
   },
   "devDependencies": {
-    "@hyzyla/pdfium": "^2.1.12",
+    "@hyzyla/pdfium": "^2.1.13",
     "@iconify-json/fluent": "^1.2.47",
     "@iconify-json/mdi": "^1.2.3",
     "@iconify/tailwind": "^1.2.0",
     "@iconify/utils": "^3.1.3",
     "@solidjs/web": "2.0.0-beta.9",
     "@tailwindcss/vite": "^4.3.0",
-    "@types/node": "^25.6.2",
+    "@types/node": "^25.8.0",
     "classix": "^2.2.12",
     "comlink": "^4.4.2",
-    "oxfmt": "^0.48.0",
-    "oxlint": "^1.63.0",
+    "oxfmt": "^0.50.0",
+    "oxlint": "^1.65.0",
     "oxlint-tsgolint": "^0.22.1",
     "solid-devtools": "^0.34.5",
     "solid-js": "2.0.0-beta.9",
     "tailwindcss": "^4.3.0",
     "typescript": "^6.0.3",
-    "vite": "8.0.11",
+    "vite": "8.0.13",
     "vite-plugin-solid": "3.0.0-next.5",
-    "wrangler": "^4.90.0"
+    "wrangler": "^4.92.0"
   },
   "engines": {
     "node": ">=24.10.0"

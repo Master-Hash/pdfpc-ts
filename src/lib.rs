@@ -146,3 +146,11 @@ pub fn bitmap_to_png(rgba_data: &[u8], width: u32, height: u32) -> Result<Vec<u8
     }
     Ok(png_data)
 }
+
+#[wasm_bindgen]
+pub fn divide(a: i32, b: i32) -> i32 {
+    if b == 0 {
+        panic!("division by zero");
+    }
+    a / b
+}

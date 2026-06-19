@@ -29,7 +29,7 @@ default = ["png"]
 [profile.release]
 opt-level = 3
 debug = false
-strip = true
+# strip = true
 lto = true
-panic = "abort"
+panic = "unwind"
 codegen-units = 1

@@ -13,27 +13,28 @@
   },
   "devDependencies": {
     "@hyzyla/pdfium": "^2.1.13",
-    "@iconify-json/fluent": "^1.2.48",
+    "@iconify-json/fluent": "^1.2.51",
     "@iconify-json/mdi": "^1.2.3",
     "@iconify/tailwind": "^1.2.0",
     "@iconify/utils": "^3.1.3",
-    "@solidjs/web": "2.0.0-beta.9",
-    "@tailwindcss/vite": "^4.3.0",
-    "@types/node": "^25.9.1",
-    "classix": "^2.2.12",
+    "@solidjs/web": "2.0.0-beta.14",
+    "@tailwindcss/vite": "^4.3.1",
+    "@types/node": "^26.0.0",
+    "classix": "^2.2.16",
     "comlink": "^4.4.2",
-    "oxfmt": "^0.52.0",
-    "oxlint": "^1.67.0",
+    "oxfmt": "^0.55.0",
+    "oxlint": "^1.70.0",
     "oxlint-tsgolint": "^0.23.0",
     "solid-devtools": "^0.34.5",
-    "solid-js": "2.0.0-beta.9",
-    "tailwindcss": "^4.3.0",
+    "solid-js": "2.0.0-beta.14",
+    "tailwindcss": "^4.3.1",
     "typescript": "^6.0.3",
-    "vite": "8.0.14",
+    "vite": "8.0.16",
     "vite-plugin-solid": "3.0.0-next.5",
-    "wrangler": "^4.95.0"
+    "wrangler": "^4.103.0"
   },
   "engines": {
     "node": ">=24.10.0"
-  }
+  },
+  "packageManager": "pnpm@11.8.0+sha512.c1f5e7c4cb241c8f174b743851d82f42b802324afc8b0f116b96adb15aa06664948dde36960a3ba1079ba5b4b29dd0140135b94b5b5f5263592249d68e555f26"
 }

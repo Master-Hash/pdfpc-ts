@@ -79,6 +79,9 @@ jobs:
           path: dist/
           compression-level: 9
       - uses: preactjs/compressed-size-action@v3
+        with:
+          pattern: "./dist/**/*.{js,css,html,json,wasm}"
+          exclude: "{./dist/manifest.json,**/*.map,**/node_modules/**}"
       - name: Deploy
         uses: cloudflare/wrangler-action@v4
         with:

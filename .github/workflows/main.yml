@@ -14,14 +14,14 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-26.04-arm
     permissions:
       contents: read
       pull-requests: write
     env:
       RUSTFLAGS: -Dwarnings -Ctarget-feature=+simd128,+bulk-memory,+mutable-globals
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - uses: actions/cache@v5
         with:
@@ -35,10 +35,10 @@ jobs:
 
       - uses: supplypike/setup-bin@v5
         with:
-          uri: "https://github.com/WebAssembly/binaryen/releases/download/version_126/binaryen-version_126-aarch64-linux.tar.gz"
+          uri: "https://github.com/WebAssembly/binaryen/releases/download/version_130/binaryen-version_130-aarch64-linux.tar.gz"
           name: "wasm-opt"
-          version: "126"
-          subPath: "binaryen-version_126/bin"
+          version: "130"
+          subPath: "binaryen-version_130/bin"
 
       - uses: taiki-e/install-action@v2
         with:
@@ -72,13 +72,22 @@ jobs:
           cargo +nightly build --release --target wasm32-unknown-unknown --no-default-features -F png -Z build-std=panic_abort,std
           wasm-bindgen ./target/wasm32-unknown-unknown/release/bitmap_to_png.wasm --out-dir ./pkg --typescript --target web
           wasm-opt ./pkg/bitmap_to_png_bg.wasm -o ./pkg/bitmap_to_png_bg.wasm -Oz --dce --enable-simd --enable-bulk-memory --enable-nontrapping-float-to-int --enable-mutable-globals
-      - run: pnpm run build
+      - run: node --run build
+      - uses: actions/upload-artifact@v7
+        with:
+          name: wasm
+          path: pkg/
+          compression-level: 9
       - uses: actions/upload-artifact@v7
         with:
           name: dist
           path: dist/
           compression-level: 9
       - uses: preactjs/compressed-size-action@v3
+        with:
+          install-script: pnpm ci
+          build-script: node --run build
+          strip-hash: "-(\\w{8})\\."
       - name: Deploy
         uses: cloudflare/wrangler-action@v4
         with:
@@ -87,8 +96,8 @@ jobs:
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
       - run: |
-          pnpm run fastly:deploy
-          pnpm run fastly:publish
+          node --run fastly:deploy
+          node --run fastly:publish
         working-directory: compute-js
         env:
           FASTLY_API_TOKEN: ${{ secrets.FASTLY_API_TOKEN }}

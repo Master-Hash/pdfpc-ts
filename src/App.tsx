@@ -1,7 +1,7 @@
 import { render } from "@solidjs/web";
 import { cx } from "classix";
 import { proxy, transfer, wrap } from "comlink";
-import { createSignal, For, onCleanup, onSettled, Show } from "solid-js";
+import { createSignal, For, onSettled, Show } from "solid-js";
 import type { JSX } from "solid-js/jsx-runtime";
 
 import { DropZone } from "./DropZone.tsx";
@@ -225,8 +225,8 @@ const handler = (e: KeyboardEvent) => {
 function PopupRoot() {
   onSettled(() => {
     w()?.window.addEventListener("keydown", handler);
+    return () => w()?.window.removeEventListener("keydown", handler);
   });
-  onCleanup(() => w()?.window.removeEventListener("keydown", handler));
   return (
     <div class="aspect-video">
       <div class="overflow-hidde h-[min(100vh,calc(100vw*9/16))] w-[min(100vw,calc(100vh*16/9))]">
@@ -330,7 +330,7 @@ function App() {
 
   onSettled(() => {
     window.addEventListener("keydown", handler);
-    onCleanup(() => window.removeEventListener("keydown", handler));
+    return () => window.removeEventListener("keydown", handler);
   });
 
   return (
@@ -487,11 +487,13 @@ function App() {
 }
 
 function Loading() {
-  onCleanup(() => {
-    if (data) {
-      void handleFileSelect("no-notes")(data);
-    }
-    console.log("Loading unmounted");
+  onSettled(() => {
+    return () => {
+      if (data) {
+        void handleFileSelect("no-notes")(data);
+      }
+      console.log("Loading unmounted");
+    };
   });
   return <p>Loading...</p>;
 }

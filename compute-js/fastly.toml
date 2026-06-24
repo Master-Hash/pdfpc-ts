@@ -9,7 +9,7 @@ manifest_version = 3
 name = "pdfpc-ts"
 
 [scripts]
-build = "pnpm run build"
+build = "node --run build"
 
 [local_server.kv_stores]
 site = { file = "./static-publisher/kvstore.json", format = "json" }

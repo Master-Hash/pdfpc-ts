@@ -72,7 +72,7 @@ jobs:
           cargo +nightly build --release --target wasm32-unknown-unknown --no-default-features -F png -Z build-std=panic_abort,std
           wasm-bindgen ./target/wasm32-unknown-unknown/release/bitmap_to_png.wasm --out-dir ./pkg --typescript --target web
           wasm-opt ./pkg/bitmap_to_png_bg.wasm -o ./pkg/bitmap_to_png_bg.wasm -Oz --dce --enable-simd --enable-bulk-memory --enable-nontrapping-float-to-int --enable-mutable-globals
-      - run: pnpm run build
+      - run: node --run build
       - uses: actions/upload-artifact@v7
         with:
           name: dist
@@ -87,8 +87,8 @@ jobs:
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
       - run: |
-          pnpm run fastly:deploy
-          pnpm run fastly:publish
+          node --run fastly:deploy
+          node --run fastly:publish
         working-directory: compute-js
         env:
           FASTLY_API_TOKEN: ${{ secrets.FASTLY_API_TOKEN }}

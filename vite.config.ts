@@ -36,6 +36,9 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ["wasm-vips", "react/jsx-dev-runtime"],
   },
+  css: {
+    transformer: "lightningcss",
+  },
   build: {
     // sourcemap: true,
     minify: "oxc",
@@ -51,6 +54,6 @@ export default defineConfig({
     format: "es",
   },
   experimental: {
-    enableNativePlugin: true,
+    bundledDev: true,
   },
 });

@@ -5,3 +5,5 @@ allowBuilds:
   sharp: false
   workerd: false
 autoInstallPeers: false
+minimumReleaseAgeExclude:
+  - vite@8.1.0

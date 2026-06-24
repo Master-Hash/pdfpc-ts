@@ -75,6 +75,11 @@ jobs:
       - run: node --run build
       - uses: actions/upload-artifact@v7
         with:
+          name: wasm
+          path: pkg/
+          compression-level: 9
+      - uses: actions/upload-artifact@v7
+        with:
           name: dist
           path: dist/
           compression-level: 9

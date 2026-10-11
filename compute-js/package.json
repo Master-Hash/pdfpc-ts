@@ -15,7 +15,7 @@
     "@fastly/js-compute": "^3.42.1"
   },
   "devDependencies": {
-    "@fastly/compute-js-static-publish": "^7.0.6"
+    "@fastly/compute-js-static-publish": "^7.0.7"
   },
   "engines": {
     "node": ">=20.11.0"
